@@ -4,19 +4,17 @@ package edu.cimo.api;
  * Created by cimo on 10/03/15.
  */
 public class Heuristic {
-    private int cost;
-
     public Heuristic() {
 
     }
 
-    public int getHammingDistance(Puzzle puzzle, Puzzle goal) {
+    public int getHammingDistance(Node node, Node goal) {
         int cnt = 0;
 
-        for (int i = 0; i < puzzle.getN(); i++) {
-            for (int j = 0; j < puzzle.getM(); j++) {
-                if (!isTileInHisPosition(puzzle, i, j, puzzle.getTiles()[i][j])) {
-                  cnt++;
+        for (int i = 0; i < node.getN(); i++) {
+            for (int j = 0; j < node.getM(); j++) {
+                if (!isTileInHisPosition(node, i, j, node.getTiles()[i][j])) {
+                    cnt++;
                 }
             }
         }
@@ -24,10 +22,10 @@ public class Heuristic {
         return cnt;
     }
 
-    private boolean isTileInHisPosition(Puzzle puzzle, int row, int column, int tileNumber) {
+    private boolean isTileInHisPosition(Node node, int row, int column, int tileNumber) {
 
-        if (tileNumber <= ((row+1) * puzzle.getN())) {
-            if ((tileNumber - (row * puzzle.getM())) == column+1)
+        if (tileNumber <= ((row+1) * node.getN())) {
+            if ((tileNumber - (row * node.getM())) == column+1)
                 return true;
         }
 

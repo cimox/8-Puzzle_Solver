@@ -88,7 +88,7 @@ public class StatesGraph {
 
             while (!edgeQueue.isEmpty()) {
                 node = edgeQueue.poll();
-                visitedNodes.put(node.getTilesAsString(), node);
+//                visitedNodes.put(node.getTilesAsString(), node);
                 graph.add(node);
 
                 if (iterationsCounter++ % 10000 == 0) {
@@ -116,12 +116,13 @@ public class StatesGraph {
         Heuristic h = new Heuristic();
         for (int move : moves) {
             Node tmp = new Node(currNode, currNode, move);
-            tmp.doMove(move);
+            int diff = tmp.doMove(move);
 //            System.out.print(diff + " ");
             if (currNode.getLastUsedOperator() != move) {
-//                tmp.setH(h.getHammingDistance(tmp, goal));
-                tmp.setH(h.getManhattanDistance(tmp, goal));
+//                tmp.setH(h.getHammingDistance(tmp, goal) + diff);
+                tmp.setH(h.getManhattanDistance(tmp, goal) + diff);
                 if (!visitedNodes.containsKey(tmp.getTilesAsString())) {
+                    visitedNodes.put(tmp.getTilesAsString(), tmp);
                     edgeNodes.add(tmp);
                 }
             }

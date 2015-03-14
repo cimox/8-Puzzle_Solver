@@ -119,7 +119,8 @@ public class StatesGraph {
             tmp.doMove(move);
 //            System.out.print(diff + " ");
             if (currNode.getLastUsedOperator() != move) {
-                tmp.setH(h.getHammingDistance(tmp, goal));
+//                tmp.setH(h.getHammingDistance(tmp, goal));
+                tmp.setH(h.getManhattanDistance(tmp, goal));
                 if (!visitedNodes.containsKey(tmp.getTilesAsString())) {
                     edgeNodes.add(tmp);
                 }

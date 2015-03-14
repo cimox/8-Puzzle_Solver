@@ -22,6 +22,13 @@ public class Heuristic {
         return cnt;
     }
 
+    public int getManhattanDistance(Node node) {
+
+
+
+        return 0;
+    }
+
     private boolean isTileInHisPosition(Node node, int row, int column, int tileNumber) {
 
         if (tileNumber <= ((row+1) * node.getN())) {

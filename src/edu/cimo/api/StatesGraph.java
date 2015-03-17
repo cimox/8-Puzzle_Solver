@@ -26,51 +26,9 @@ public class StatesGraph {
         return this.iterationsCounter;
     }
 
-    public void BSTGreedy() throws CloneNotSupportedException {
-        if (start.compareNodes(goal)) {
-            System.out.println("State is in goal state!");
-        }
-        else {
-            Heuristic h = new Heuristic();
-            Node node = null;
-            PriorityQueue<Node> currNodes = new PriorityQueue<Node>(4, new Comparator<Node>() {
-                @Override
-                public int compare(Node x, Node y) {
-                    if (x.getH() <= y.getH()) return -1;
-                    if (x.getH() > y.getH()) return 1;
-                    return 0;
-                }
-            });
-
-            if (currNodes.isEmpty()) { // Starting alg. generate first possible moves.
-                graph.add(start);
-                makeMoves(start, currNodes);
-                node = currNodes.poll(); // Get the head of queue and remove object.
-                node.printFancyTiles();
-                currNodes.clear(); // Empty priority queue
-                graph.add(node);
-                iterationsCounter++;
-            }
-
-            while (!node.compareNodes(goal)) {
-                makeMoves(node, currNodes);
-
-                node = currNodes.poll();
-                node.printFancyTiles();
-                currNodes.clear();
-                graph.add(node);
-                System.out.println(iterationsCounter++);
-            }
-
-            for (Node e : graph)
-                e.printFancyTiles();
-            System.out.println("Total moves: " + iterationsCounter);
-        }
-    }
-
     public Vector<Node> BFSGreedy() {
         if (start.compareNodes(goal)) {
-            System.out.println("Start node is goal node!");
+            System.out.println("Start node is the goal node!");
         }
         else {
             Heuristic h = new Heuristic();
@@ -88,18 +46,13 @@ public class StatesGraph {
 
             while (!edgeQueue.isEmpty()) {
                 node = edgeQueue.poll();
-//                visitedNodes.put(node.getTilesAsString(), node);
+                // Visited nodes are handled in makeMoves method.
                 graph.add(node);
-
-                if (iterationsCounter++ % 10000 == 0) {
-                    System.out.println("Iteration: " + iterationsCounter + ", queue size: " + edgeQueue.size());
-                }
 
                 if (node.compareNodes(goal)) {
                     System.out.println("Solution found!");
                     return graph;
                 }
-//                edgeQueue.clear();
                 makeMoves(node, edgeQueue);
             }
         }
@@ -117,7 +70,6 @@ public class StatesGraph {
         for (int move : moves) {
             Node tmp = new Node(currNode, currNode, move);
             int diff = tmp.doMove(move);
-//            System.out.print(diff + " ");
             if (currNode.getLastUsedOperator() != move) {
 //                tmp.setH(h.getHammingDistance(tmp, goal) + diff);
                 tmp.setH(h.getManhattanDistance(tmp, goal) + diff);

@@ -3,12 +3,12 @@ package edu.cimo.api;
 /**
  * Created by cimo on 10/03/15.
  */
-public class Heuristic {
+public abstract class Heuristic {
     public Heuristic() {
 
     }
 
-    public int getHammingDistance(Node node, Node goal) {
+    public static int getHammingDistance(Node node, Node goal) {
         int cnt = 0;
 
         for (int i = 0; i < node.getN(); i++) {
@@ -22,7 +22,7 @@ public class Heuristic {
         return cnt;
     }
 
-    public int getManhattanDistance(Node node, Node goal) {
+    public static int getManhattanDistance(Node node, Node goal) {
         int manhattanDist = 0;
 
         for (int i = 0; i < node.getN(); i++) {
@@ -35,14 +35,14 @@ public class Heuristic {
         return manhattanDist;
     }
 
-    private int getDistToCoordinates(int[] coordinatesNode, int[] coordinateGoal) {
+    private static int getDistToCoordinates(int[] coordinatesNode, int[] coordinateGoal) {
         int dist = 0;
 
         dist = Math.abs(coordinateGoal[0] - coordinatesNode[0]) + Math.abs(coordinateGoal[1] - coordinatesNode[1]);
         return dist;
     }
 
-    private int[] getTileCoordinates(Node goal, int tile) {
+    private static int[] getTileCoordinates(Node goal, int tile) {
         int coordinates[] = new int[2];
 
         for (int i = 0; i < goal.getN(); i++) {
@@ -57,7 +57,7 @@ public class Heuristic {
         return coordinates;
     }
 
-    private boolean isTileInHisPosition(Node node, int row, int column, int tileNumber) {
+    private static boolean isTileInHisPosition(Node node, int row, int column, int tileNumber) {
 
         if (tileNumber <= ((row+1) * node.getN())) {
             if ((tileNumber - (row * node.getM())) == column+1)

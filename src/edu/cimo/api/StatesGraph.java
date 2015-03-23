@@ -36,7 +36,7 @@ public class StatesGraph {
             PriorityQueue<Node> edgeQueue = new PriorityQueue<Node>(4, new Comparator<Node>() {
                 @Override
                 public int compare(Node x, Node y) {
-                    if (x.getH() <= y.getH()) return -1;
+                    if (x.getH() < y.getH()) return -1;
                     if (x.getH() > y.getH()) return 1;
                     return 0;
                 }
@@ -46,8 +46,15 @@ public class StatesGraph {
 
             while (!edgeQueue.isEmpty()) {
                 node = edgeQueue.poll();
+
                 // Visited nodes are handled in makeMoves method.
                 graph.add(node);
+                visitedNodes.put(node.getTilesAsString(), node);
+                iterationsCounter++;
+                if (iterationsCounter > 10000) {
+//                    System.out.print("x ");
+                    edgeQueue.clear();
+                }
 
                 if (node.compareNodes(goal)) {
                     System.out.println("Solution found!");
@@ -55,6 +62,7 @@ public class StatesGraph {
                 }
                 makeMoves(node, edgeQueue);
             }
+            int x =0;
         }
         return null;
     }
@@ -71,10 +79,10 @@ public class StatesGraph {
             Node tmp = new Node(currNode, currNode, move);
             int diff = tmp.doMove(move);
             if (currNode.getLastUsedOperator() != move) {
-//                tmp.setH(h.getHammingDistance(tmp, goal) + diff);
-                tmp.setH(h.getManhattanDistance(tmp, goal) + diff);
+                tmp.setH(h.getHammingDistance(tmp, goal));
+//                tmp.setH(h.getManhattanDistance(tmp, goal));
                 if (!visitedNodes.containsKey(tmp.getTilesAsString())) {
-                    visitedNodes.put(tmp.getTilesAsString(), tmp);
+//                    visitedNodes.put(tmp.getTilesAsString(), tmp);
                     edgeNodes.add(tmp);
                 }
             }

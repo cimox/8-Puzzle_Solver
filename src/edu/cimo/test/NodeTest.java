@@ -1,7 +1,6 @@
 package edu.cimo.test;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
+
 import edu.cimo.api.Node;
 import edu.cimo.api.Solver;
 import org.junit.Test;
@@ -12,7 +11,6 @@ import java.io.UnsupportedEncodingException;
 import java.util.Random;
 import java.util.Vector;
 
-import static org.junit.Assert.assertEquals;
 
 /**
  * Created by HP on 13. 3. 2015.
